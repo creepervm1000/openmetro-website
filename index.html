@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenMetro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@200;300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #0078D4;
+      --dark: #111111;
+      --card: #1a1a1a;
+      --fg: #ffffff;
+      --dim: #888888;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--dark);
+      color: var(--fg);
+      font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      border-bottom: 1px solid #1e1e1e;
+      position: sticky;
+      top: 0;
+      background: rgba(17,17,17,0.95);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-tiles {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      width: 28px;
+      height: 28px;
+      gap: 2px;
+    }
+    .logo-tiles span:nth-child(1) { background: #0078D4; }
+    .logo-tiles span:nth-child(2) { background: #00B4D8; }
+    .logo-tiles span:nth-child(3) { background: #744DA9; }
+    .logo-tiles span:nth-child(4) { background: #FF8C00; }
+
+    .nav-logo-text {
+      font-size: 16px;
+      font-weight: 300;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--fg);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--dim);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--fg); }
+
+    /* HERO */
+    .hero {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 0 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-tiles {
+      position: absolute;
+      right: -40px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: grid;
+      grid-template-columns: 140px 90px 140px;
+      grid-template-rows: 90px 90px 90px;
+      gap: 8px;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    .ht { }
+    .ht-blue  { background: #0078D4; grid-column: 1; grid-row: 1 / span 2; }
+    .ht-teal  { background: #00B4D8; grid-column: 2; grid-row: 1; }
+    .ht-orange{ background: #FF8C00; grid-column: 2; grid-row: 2; }
+    .ht-purple{ background: #744DA9; grid-column: 3; grid-row: 1; }
+    .ht-green { background: #107C10; grid-column: 1; grid-row: 3; }
+    .ht-red   { background: #E74856; grid-column: 2; grid-row: 3; }
+    .ht-dark  { background: #0063B1; grid-column: 3; grid-row: 2 / span 2; }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-size: clamp(48px, 7vw, 88px);
+      font-weight: 200;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      margin-bottom: 24px;
+      max-width: 700px;
+    }
+    .hero-title strong {
+      font-weight: 600;
+      color: var(--blue);
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--dim);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 13px 32px;
+      font-family: "Segoe UI", sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.15s;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #005fa3; }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--fg);
+      border: 1px solid #333;
+    }
+    .btn-outline:hover { border-color: #666; background: #1e1e1e; }
+
+    /* FEATURES */
+    .section {
+      padding: 96px 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 36px;
+      font-weight: 200;
+      margin-bottom: 56px;
+      color: var(--fg);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2px;
+    }
+
+    .feature {
+      background: var(--card);
+      padding: 36px 32px;
+      transition: background 0.15s;
+    }
+    .feature:hover { background: #222; }
+
+    .feature-icon {
+      width: 40px;
+      height: 4px;
+      background: var(--blue);
+      margin-bottom: 24px;
+    }
+
+    .feature-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .feature-desc {
+      font-size: 13px;
+      color: var(--dim);
+      line-height: 1.7;
+    }
+
+    /* CODE */
+    .code-section {
+      background: #0a0a0a;
+      border-top: 1px solid #1e1e1e;
+      border-bottom: 1px solid #1e1e1e;
+      padding: 96px 48px;
+    }
+
+    .code-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    pre {
+      background: #111;
+      border: 1px solid #222;
+      padding: 28px 32px;
+      font-family: "Cascadia Code", "Consolas", monospace;
+      font-size: 13px;
+      line-height: 1.8;
+      color: #ccc;
+      overflow-x: auto;
+    }
+
+    .kw { color: #569CD6; }
+    .str { color: #CE9178; }
+    .cm { color: #6A9955; }
+    .fn { color: #DCDCAA; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid #1e1e1e;
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--dim);
+      font-size: 12px;
+    }
+
+    footer a { color: var(--dim); text-decoration: none; }
+    footer a:hover { color: var(--fg); }
+
+    /* DIVIDER */
+    .divider {
+      height: 1px;
+      background: #1e1e1e;
+      margin: 0 48px;
+    }
+
+    /* Fade in */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="logo-tiles">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <span class="nav-logo-text">OpenMetro</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#build">Build Apps</a></li>
+    <li><a href="https://github.com/creepervm1000/openmetro">GitHub</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-tiles">
+    <div class="ht ht-blue"></div>
+    <div class="ht ht-teal"></div>
+    <div class="ht ht-orange"></div>
+    <div class="ht ht-purple"></div>
+    <div class="ht ht-green"></div>
+    <div class="ht ht-red"></div>
+    <div class="ht ht-dark"></div>
+  </div>
+
+  <p class="hero-eyebrow fade-in">Open Source · Windows 10</p>
+  <h1 class="hero-title fade-in">Metro apps.<br><strong>Brought back.</strong></h1>
+  <p class="hero-sub fade-in">
+    OpenMetro is an open platform for fullscreen Metro-style apps on Windows 10.
+    Build with HTML, CSS, and JavaScript. Distribute through the OpenMetro Store.
+  </p>
+  <div class="hero-actions fade-in">
+    <a class="btn btn-primary" href="https://github.com/creepervm1000/openmetro/releases">Download Client</a>
+    <a class="btn btn-outline" href="https://github.com/creepervm1000/openmetro">View on GitHub</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section" id="features">
+  <p class="section-label fade-in">Why OpenMetro</p>
+  <h2 class="section-title fade-in">Everything you remember.<br>Nothing you don't.</h2>
+
+  <div class="features">
+    <div class="feature fade-in">
+      <div class="feature-icon"></div>
+      <div class="feature-title">Fullscreen by default</div>
+      <div class="feature-desc">Apps launch fullscreen just like Windows 8. Move your cursor to the top edge to reveal the titlebar and go home.</div>
+    </div>
+    <div class="feature fade-in">
+      <div class="feature-icon" style="background:#00B4D8"></div>
+      <div class="feature-title">Web-powered apps</div>
+      <div class="feature-desc">Apps are HTML, CSS, and JavaScript — running in a Chromium webview. No proprietary SDK. No special runtime.</div>
+    </div>
+    <div class="feature fade-in">
+      <div class="feature-icon" style="background:#744DA9"></div>
+      <div class="feature-title">Built-in store</div>
+      <div class="feature-desc">Browse and install apps from the OpenMetro Store — a static registry hosted on Cloudflare Pages. No server required.</div>
+    </div>
+    <div class="feature fade-in">
+      <div class="feature-icon" style="background:#107C10"></div>
+      <div class="feature-title">Start Menu integration</div>
+      <div class="feature-desc">Apps are registered in the Windows Start Menu on install. Launch any app without opening the client first.</div>
+    </div>
+    <div class="feature fade-in">
+      <div class="feature-icon" style="background:#FF8C00"></div>
+      <div class="feature-title">Open by design</div>
+      <div class="feature-desc">Submit apps via GitHub pull request. The entire store is a static JSON registry — anyone can contribute.</div>
+    </div>
+    <div class="feature fade-in">
+      <div class="feature-icon" style="background:#E74856"></div>
+      <div class="feature-title">Lightweight</div>
+      <div class="feature-desc">The client is a single 16MB exe built with Python and PyInstaller. No Electron. No .NET runtime. No bloat.</div>
+    </div>
+  </div>
+</section>
+
+<div class="code-section" id="build">
+  <div class="code-inner">
+    <div class="fade-in">
+      <p class="section-label">Build Apps</p>
+      <h2 class="section-title" style="margin-bottom:20px;">An app is just<br>a web page.</h2>
+      <p style="color:var(--dim); font-size:14px; line-height:1.8; margin-bottom:28px;">
+        Create a folder with an <code style="color:#ccc">index.html</code>. That's your app.
+        The OpenMetro runner injects the titlebar and close button automatically —
+        you don't need to build any of that yourself.
+      </p>
+      <a class="btn btn-outline" href="https://github.com/creepervm1000/openmetro-server">Submit to Store →</a>
+    </div>
+    <pre class="fade-in"><span class="cm">&lt;!-- my-app/index.html --&gt;</span>
+<span class="kw">&lt;!DOCTYPE html&gt;</span>
+&lt;<span class="fn">html</span>&gt;
+&lt;<span class="fn">head</span>&gt;
+  &lt;<span class="fn">title</span>&gt;My App&lt;/<span class="fn">title</span>&gt;
+&lt;/<span class="fn">head</span>&gt;
+&lt;<span class="fn">body</span>&gt;
+  <span class="cm">&lt;!-- your app here --&gt;</span>
+  <span class="cm">&lt;!-- titlebar injected automatically --&gt;</span>
+&lt;/<span class="fn">body</span>&gt;
+&lt;/<span class="fn">html</span>&gt;
+
+<span class="cm"># publish to store:</span>
+<span class="kw">python</span> publish.py ./my-app/src my-app 1.0.0</pre>
+  </div>
+</div>
+
+<footer>
+  <span>OpenMetro — open source, MIT license</span>
+  <span>
+    <a href="https://github.com/creepervm1000/openmetro">GitHub</a>
+    &nbsp;·&nbsp;
+    <a href="https://github.com/creepervm1000/openmetro-server">Store Server</a>
+  </span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
